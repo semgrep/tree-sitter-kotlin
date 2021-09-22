@@ -44,7 +44,6 @@ const PREC = {
 	EXPECT: 2,
 	ASSIGNMENT: 1,
   BLOCK: 1,
-  POSTFIX_UNARY_EXPRESSION: 1,
 	LAMBDA_LITERAL: 0,
 	RETURN_OR_THROW: 0,
 	COMMENT: 0
@@ -509,7 +508,7 @@ module.exports = grammar({
 		assignment: $ => choice(
 			prec.left(PREC.ASSIGNMENT, seq($._primary_expression, $._assignment_and_operator, $._expression)),
       prec.left(PREC.ASSIGNMENT, seq($._primary_expression, "=", $._expression)),
-      prec.left(PREC.ASSIGNMENT, seq($._primary_expression, ".", $.simple_identifier, "=", $._expression))
+      prec.left(PREC.ASSIGNMENT, seq($._primary_expression, $.navigation_suffix, "=", $._expression))
 		),
 
 		// ==========
@@ -853,11 +852,11 @@ module.exports = grammar({
 		                           //       does it seem to be very uncommon to write the safe
                                //       navigation operator 'split up' in Kotlin.
 
-    _directly_assignable_expression: $ => choice(
+    /*_directly_assignable_expression: $ => choice(
       $.simple_identifier,
       seq($._primary_expression, $.navigation_suffix)
       // TODO: fill out other possibilities
-    ),
+    ),*/
 
 		// ==========
 		// Modifiers
