@@ -507,8 +507,9 @@ module.exports = grammar({
 		_semis: $ => /[\r\n]+/,
 
 		assignment: $ => choice(
-			prec.left(PREC.ASSIGNMENT, seq($.directly_assignable_expression, $._assignment_and_operator, $._expression)),
-			prec.left(PREC.ASSIGNMENT, seq($.directly_assignable_expression, "=", $._expression))
+			prec.left(PREC.ASSIGNMENT, seq($._primary_expression, $._assignment_and_operator, $._expression)),
+      prec.left(PREC.ASSIGNMENT, seq($._primary_expression, "=", $._expression)),
+      prec.left(PREC.ASSIGNMENT, seq($._primary_expression, ".", $.simple_identifier, "=", $._expression))
 		),
 
 		// ==========
@@ -850,12 +851,13 @@ module.exports = grammar({
 		                           //       but produce an LR(1) conflict that way, however.
 		                           //       ('as' expression with '?' produces conflict). Also
 		                           //       does it seem to be very uncommon to write the safe
-		                           //       navigation operator 'split up' in Kotlin.
+                               //       navigation operator 'split up' in Kotlin.
 
-		directly_assignable_expression: $ => choice(
-			$.simple_identifier
-			// TODO
-		),
+    _directly_assignable_expression: $ => choice(
+      $.simple_identifier,
+      seq($._primary_expression, $.navigation_suffix)
+      // TODO: fill out other possibilities
+    ),
 
 		// ==========
 		// Modifiers
