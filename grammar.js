@@ -45,7 +45,7 @@ const PREC = {
 	ASSIGNMENT: 1,
   BLOCK: 1,
 	LAMBDA_LITERAL: 0,
-	RETURN_OR_THROW: 0,
+  RETURN_OR_THROW: 0,
 	COMMENT: 0
 };
 const DEC_DIGITS = token(sep1(/[0-9]+/, /_+/));
@@ -73,7 +73,9 @@ module.exports = grammar({
     [$._primary_expression, $.callable_reference],
 
     // @Type(... could either be an annotation constructor invocation or an annotated expression
-    [$.constructor_invocation, $._unescaped_annotation]
+    [$.constructor_invocation, $._unescaped_annotation],
+
+    [$._primary_expression, $._directly_assignable_expression],
   ],
 
   extras: $ => [
@@ -506,9 +508,8 @@ module.exports = grammar({
 		_semis: $ => /[\r\n]+/,
 
 		assignment: $ => choice(
-			prec.left(PREC.ASSIGNMENT, seq($._primary_expression, $._assignment_and_operator, $._expression)),
-      prec.left(PREC.ASSIGNMENT, seq($._primary_expression, "=", $._expression)),
-      prec.left(PREC.ASSIGNMENT, seq($._primary_expression, $.navigation_suffix, "=", $._expression))
+			prec.left(PREC.ASSIGNMENT, seq($._directly_assignable_expression, $._assignment_and_operator, $._expression)),
+      prec.left(PREC.ASSIGNMENT, seq($._directly_assignable_expression, "=", $._expression)),
 		),
 
 		// ==========
@@ -852,11 +853,24 @@ module.exports = grammar({
 		                           //       does it seem to be very uncommon to write the safe
                                //       navigation operator 'split up' in Kotlin.
 
-    /*_directly_assignable_expression: $ => choice(
-      $.simple_identifier,
-      seq($._primary_expression, $.navigation_suffix)
-      // TODO: fill out other possibilities
-    ),*/
+    _postfix_unary_suffix: $ => choice(
+      $._postfix_unary_operator,
+      $.navigation_suffix
+    ),
+
+    _postfix_unary_expression: $ => prec(
+      PREC.ASSIGNMENT,
+      seq($._primary_expression, repeat($._postfix_unary_suffix))
+    ),
+
+    _directly_assignable_expression: $ => prec(
+      PREC.ASSIGNMENT,
+      choice(
+        $.simple_identifier,
+        $._postfix_unary_expression
+        // TODO: fill out other possibilities
+      )
+    ),
 
 		// ==========
 		// Modifiers
