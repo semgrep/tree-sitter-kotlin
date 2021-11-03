@@ -73,6 +73,10 @@ bool tree_sitter_kotlin_external_scanner_scan(void *payload, TSLexer *lexer,
   if (!scan_whitespace_and_comments(lexer)) return false;
 
   switch (lexer->lookahead) {
+    // specific to kotlin
+    case '{':
+
+    // from tree-sitter-javascript
     //case ',':
     case '.':
     //case ':':
