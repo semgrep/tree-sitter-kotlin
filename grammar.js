@@ -627,7 +627,9 @@ module.exports = grammar({
 
     elvis_expression: $ => prec.left(PREC.ELVIS, seq($._expression, "?:", $._expression)),
 
-    check_expression: $ => prec.left(PREC.CHECK, seq($._expression, choice($._in_operator, $._is_operator), $._expression)),
+    check_expression: $ => prec.left(PREC.CHECK, seq($._expression, choice(
+									   seq($._in_operator, $._expression),
+									   seq($._is_operator, $._type)))),
 
     comparison_expression: $ => prec.left(PREC.COMPARISON, seq($._expression, $._comparison_operator, $._expression)),
 
