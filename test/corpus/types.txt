@@ -16,36 +16,6 @@ something as A
     (user_type (type_identifier))))
 
 ==================
-Nested types
-==================
-
-something as Some.NestedType
-
----
-
-(source_file
-  (as_expression
-    (simple_identifier)
-    (user_type (type_identifier) (type_identifier))))
-
-==================
-Deeply nested types
-==================
-
-somethingElse as A.Deeply.Nested.Type
-
----
-
-(source_file
-  (as_expression
-    (simple_identifier)
-    (user_type
-      (type_identifier)
-      (type_identifier)
-      (type_identifier)
-      (type_identifier))))
-
-==================
 Generic wildcard types
 ==================
 
