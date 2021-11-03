@@ -128,7 +128,7 @@ module.exports = grammar({
     // start
     source_file: $ => seq(
       optional($.shebang_line),
-      optional(seq(repeat1($.file_annotation), $._semi)),
+      repeat($.file_annotation),
       optional($.package_header),
       repeat($.import_header),
       repeat(seq($._statement, $._semi))
@@ -141,7 +141,8 @@ module.exports = grammar({
       choice(
         seq("[", repeat1($._unescaped_annotation), "]"),
         $._unescaped_annotation
-      )
+       ),
+      $._semi
     ),
 
     package_header: $ => seq("package", $.identifier, $._semi),
