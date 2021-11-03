@@ -85,7 +85,7 @@ bool tree_sitter_kotlin_external_scanner_scan(void *payload, TSLexer *lexer,
     //case '%':
     //case '>':
     //case '<':
-    //case '=':
+    case '=': // ex: fun/val definition on next line (or == binop)
     //case '[':
     //case '(':
     case '?': // ex: evlis operator ?: on next line

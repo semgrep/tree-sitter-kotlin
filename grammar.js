@@ -348,7 +348,6 @@ module.exports = grammar({
     property_delegate: $ => seq("by", $._expression),
 
     getter: $ => prec.right(seq(
-      // optional(seq($._semi, $.modifiers)), // TODO
       optional($.modifiers),
       "get",
       optional(seq(
@@ -359,7 +358,6 @@ module.exports = grammar({
     )),
 
     setter: $ => prec.right(seq(
-      // optional(seq($._semi, $.modifiers)), // TODO
       optional($.modifiers),
       "set",
       optional(seq(
