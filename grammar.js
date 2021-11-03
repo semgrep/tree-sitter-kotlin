@@ -1151,8 +1151,7 @@ module.exports = grammar({
     _backtick_identifier: $ => /`[^\r\n`]+`/,
 
     _uni_character_literal: $ => seq(
-      "\\",
-      "u",
+      "\\u",
       /[0-9a-fA-F]{4}/
     ),
 
