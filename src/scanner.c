@@ -78,8 +78,8 @@ bool tree_sitter_kotlin_external_scanner_scan(void *payload, TSLexer *lexer,
 
     // from tree-sitter-javascript
     //case ',':
-    case '.': // ex: multiline method-chain calls
-    case ':': // ex: multiline class def
+    case '.': // ex: method-chain calls on next line
+    case ':': // ex: inheritance clause defined on next line
     //case ';':
     //case '*':
     //case '%':
@@ -88,10 +88,10 @@ bool tree_sitter_kotlin_external_scanner_scan(void *payload, TSLexer *lexer,
     //case '=':
     //case '[':
     //case '(':
-    //case '?':
-    case '^':
-    case '|':
-    case '&':
+    case '?': // ex: evlis operator ?: on next line
+    case '^': // ex: binary operator between 2 exprs
+    case '|': // ex: binary operator between 2 exprs
+    case '&': // ex: binary operator between 2 exprs
     //case '/':
       return false;
     //
