@@ -169,6 +169,10 @@ module.exports = grammar({
       $.object_declaration,
       $.function_declaration,
       $.property_declaration,
+      // ugly. alt: better ASI in scanner.c when lookahead is get or set
+      // (but can be also modifiers, so tricky)
+      $.getter,
+      $.setter,
       $.type_alias
     ),
 
@@ -344,6 +348,7 @@ module.exports = grammar({
 
     getter: $ => prec.right(seq(
       // optional(seq($._semi, $.modifiers)), // TODO
+      optional($.modifiers),
       "get",
       optional(seq(
         "(", ")",
@@ -354,6 +359,7 @@ module.exports = grammar({
 
     setter: $ => prec.right(seq(
       // optional(seq($._semi, $.modifiers)), // TODO
+      optional($.modifiers),
       "set",
       optional(seq(
         "(",
