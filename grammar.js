@@ -77,6 +77,8 @@ module.exports = grammar({
 
     // "expect" as a plaform modifier conflicts with expect as an identifier
     [$.platform_modifier, $.simple_identifier],
+    // "data", "inner" as class modifier or id
+    [$.class_modifier, $.simple_identifier],
 
     // "<x>.<y> = z assignment conflicts with <x>.<y>() function call"
     [$._postfix_unary_expression, $._expression],
@@ -1047,7 +1049,10 @@ module.exports = grammar({
 
     simple_identifier: $ => choice(
       $._lexical_identifier,
-      "expect"
+      "expect",
+      "data",
+      "inner",
+      "actual",
       // TODO: More soft keywords
     ),
 
