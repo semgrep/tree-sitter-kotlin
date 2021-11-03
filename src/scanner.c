@@ -74,12 +74,12 @@ bool tree_sitter_kotlin_external_scanner_scan(void *payload, TSLexer *lexer,
 
   switch (lexer->lookahead) {
     // specific to kotlin
-    case '{':
+    case '{': // ex: function body defined on next line after decl
 
     // from tree-sitter-javascript
     //case ',':
-    case '.':
-    //case ':':
+    case '.': // ex: multiline method-chain calls
+    case ':': // ex: multiline class def
     //case ';':
     //case '*':
     //case '%':
