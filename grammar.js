@@ -159,6 +159,7 @@ module.exports = grammar({
     top_level_object: $ => seq($._declaration, optional($._semis)),
 
     type_alias: $ => seq(
+      optional($.modifiers),
       "typealias",
       alias($.simple_identifier, $.type_identifier),
       "=",
