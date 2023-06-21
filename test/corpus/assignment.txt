@@ -20,11 +20,11 @@ class Foo(){
         (variable_declaration
           (simple_identifier)))
       (secondary_constructor
-      (function_value_parameters
-        (parameter
-          (simple_identifier)
-          (user_type
-            (type_identifier))))
+        (function_value_parameters
+          (parameter
+            (simple_identifier)
+            (user_type
+              (type_identifier))))
         (statements
           (assignment
             (directly_assignable_expression
@@ -65,3 +65,28 @@ fun main(){
             (indexing_suffix
               (integer_literal)))
           (string_literal))))))
+
+================================================================================
+Call Assignment
+================================================================================
+
+foo() = 2
+foo().bar = 3
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assignment
+    (directly_assignable_expression
+      (simple_identifier)
+      (call_suffix_without_type_arguments
+        (value_arguments)))
+    (integer_literal))
+  (assignment
+    (directly_assignable_expression
+      (simple_identifier)
+      (call_suffix_without_type_arguments
+        (value_arguments))
+      (navigation_suffix
+        (simple_identifier)))
+    (integer_literal)))
