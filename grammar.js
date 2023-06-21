@@ -696,6 +696,15 @@ module.exports = grammar({
       )
     )),
 
+    call_suffix_without_type_arguments: $ => prec.left(seq(
+      choice(
+        seq(optional($.value_arguments), $.annotated_lambda),
+        $.value_arguments
+      )
+    )),
+
+
+
     annotated_lambda: $ => seq(
       repeat($.annotation),
       optional($.label),
@@ -940,7 +949,8 @@ module.exports = grammar({
     _postfix_unary_suffix: $ => choice(
       $._postfix_unary_operator,
       $.navigation_suffix,
-      $.indexing_suffix
+      $.indexing_suffix,
+      $.call_suffix_without_type_arguments
     ),
 
     _postfix_unary_expression: $ => seq($._primary_expression, repeat($._postfix_unary_suffix)),

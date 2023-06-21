@@ -832,6 +832,25 @@
     }
   },
   {
+    "type": "call_suffix_without_type_arguments",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "annotated_lambda",
+          "named": true
+        },
+        {
+          "type": "value_arguments",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "callable_reference",
     "named": true,
     "fields": {},
@@ -2220,6 +2239,10 @@
         },
         {
           "type": "boolean_literal",
+          "named": true
+        },
+        {
+          "type": "call_suffix_without_type_arguments",
           "named": true
         },
         {

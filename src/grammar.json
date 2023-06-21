@@ -3402,6 +3402,45 @@
         ]
       }
     },
+    "call_suffix_without_type_arguments": {
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "value_arguments"
+                      },
+                      {
+                        "type": "BLANK"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "annotated_lambda"
+                  }
+                ]
+              },
+              {
+                "type": "SYMBOL",
+                "name": "value_arguments"
+              }
+            ]
+          }
+        ]
+      }
+    },
     "annotated_lambda": {
       "type": "SEQ",
       "members": [
@@ -4854,6 +4893,10 @@
         {
           "type": "SYMBOL",
           "name": "indexing_suffix"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "call_suffix_without_type_arguments"
         }
       ]
     },
