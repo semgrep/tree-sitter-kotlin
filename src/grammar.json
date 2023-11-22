@@ -2841,10 +2841,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "call_expression"
-        },
-        {
-          "type": "SYMBOL",
           "name": "indexing_expression"
         },
         {
@@ -3611,6 +3607,10 @@
         {
           "type": "SYMBOL",
           "name": "_function_literal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "call_expression"
         },
         {
           "type": "SYMBOL",
